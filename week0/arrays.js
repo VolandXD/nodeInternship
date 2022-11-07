@@ -4,6 +4,9 @@ const myArray = [1, 10, 3, 6, 'ArrayElement'];
  * 1. Log 3 and 6 elements from myArray to console
  * Please, use more than on solution
  */
+/**
+ *I not sure that need output 3 and 6 from array or elements with index 3 and 6
+ * first part */
 console.log(myArray.filter((item) => item === 3 || item === 6))
 function find(e) {
     let index;
@@ -12,9 +15,16 @@ function find(e) {
 }
 console.log(find(3))
 console.log(find(6))
-// console.log(`3: ${}`);
-// console.log(`6: ${}`);
-
+/**
+ * second part*/
+console.log(`3: ${myArray[3]}`);
+console.log(`6: ${myArray[6]}`);
+function arrEl() {
+    for (let i = 0; i <= 6; i++) {
+        if (i === 3 || i === 6) console.log(myArray[i])
+    }
+}
+arrEl();
 /**
  *  2. Log type of each element
  */

@@ -71,3 +71,9 @@ console.log({
 /**
  * 7. Loop through object and log key-values
  */
+function seeObj(obj) {
+    for (const [key, value] of Object.entries(obj)) {
+        console.log(`${key}: ${value}`);
+    }
+}
+seeObj(copiedInvoice)
