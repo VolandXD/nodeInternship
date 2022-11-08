@@ -32,7 +32,7 @@ console.log(countSum(1, 2));
 
 function countLetters(string, letter) {
     const array = string.split('');
-    array.filter((i) => i === 'd')
+    array.filter((i) => i === letter)
     return array.filter((i) => i === letter).length;
 }
 

@@ -12,15 +12,15 @@
  */
 require('dotenv').config()
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
+const fs = require('fs')
+const conf = require('./config.js');
 const mode = process.env.MODE || 'DEV';
 const getResponse = async (mode) => {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
-    const responseMode = mode === 'DEV' ? await fetch(`https://jsonplaceholder.typicode.com/albums`) : await fetch(`https://jsonplaceholder.typicode.com/todos`);
-    const data = await response.json();
-    const dataMode = await responseMode.json();
-    const fs = require('fs')
-    fs.writeFileSync('users.json', JSON.stringify(data));
-    fs.writeFileSync(mode === 'DEV' ? 'albums.json' : 'todos.json', JSON.stringify(dataMode));
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
+        const responseMode = await fetch(`${conf.api[`${mode}`]}`);
+        const data = await response.json();
+        const dataMode = await responseMode.json();
+        fs.writeFile('users.json', JSON.stringify(data), () => {});
+        fs.writeFile(`${conf.filename[`${mode}`]}`, JSON.stringify(dataMode), () => {});
 }
 getResponse(mode);

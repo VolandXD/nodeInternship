@@ -11,7 +11,7 @@ const invoice = {
  */
 
 console.log(`First name: ${invoice.firstName}`);
-console.log(`Last name: ${invoice.lastName}`);
+console.log(`Last name: ${invoice['lastName']}`);
 
 /**
  * 2. Log Object Keys
@@ -50,10 +50,12 @@ console.log({
 
 const copiedInvoice = JSON.parse(JSON.stringify(invoice));
 const copiedInvoice2 = Object.assign({}, invoice);
+const copiedInvoice3 = { ...invoice };
 
 console.log({
     copiedInvoice,
     copiedInvoice2,
+    copiedInvoice3,
 });
 
 /**
