@@ -3,12 +3,14 @@ const UsersComponent = require('./index');
 
 const router = Router();
 
-router.post('/users', UsersComponent.create);
+router.post('/', UsersComponent.create);
 
-router.get('/users', UsersComponent.findOne);
+router.get('/list', UsersComponent.findAll);
 
-router.put('/users/:id', UsersComponent.update);
+router.get('/', UsersComponent.findOne);
 
-router.delete('/users/:id', UsersComponent.deleteUser);
+router.put('/:id', UsersComponent.update);
+
+router.delete('/:id', UsersComponent.deleteUser);
 
 module.exports = router;

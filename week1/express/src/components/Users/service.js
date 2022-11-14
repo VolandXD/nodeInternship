@@ -1,14 +1,26 @@
-function findOne() {
-    return [];
+const UserModel = require('../../models/user-model')
+const UserDto = require('../../dtos/user-dto')
+
+async function findAll() {
+    return UserModel.find();
 }
-function create() {
-    return [];
+async function findOne({id}) {
+    const user = await UserModel.findOne({_id: id});
+    return new UserDto(user);
 }
-function update() {
-    return [];
+async function create({email, firstName, lastName}) {
+    const user = await UserModel.create({email, firstName, lastName});
+    return new UserDto(user);
 }
-function deleteUser() {
-    return [];
+async function update({id}, newData) {
+    const user = await UserModel.findOneAndUpdate({_id: id}, newData, {
+        new: true
+    })
+    return new UserDto(user);
+}
+async function deleteUser({id}) {
+    const user = await UserModel.deleteOne({_id: id})
+    return user.deletedCount;
 }
 
 /**
@@ -23,6 +35,7 @@ function deleteUser() {
 
 module.exports = {
     create,
+    findAll,
     findOne,
     update,
     deleteUser,

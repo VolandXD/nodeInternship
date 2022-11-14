@@ -1,11 +1,25 @@
 const UsersService = require('./service');
 
-async function findOne(req, res) {
+async function findAll(req, res) {
     try {
-        const demo = await UsersService.findOne();
+        const users = await UsersService.findAll();
 
         return res.status(200).json({
-            data: demo,
+            data: users,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message,
+            details: null,
+        });
+    }
+}
+async function findOne(req, res) {
+    try {
+        const user = await UsersService.findOne(req.query);
+
+        return res.status(200).json({
+            data: user,
         });
     } catch (error) {
         return res.status(500).json({
@@ -17,10 +31,10 @@ async function findOne(req, res) {
 
 async function create(req, res) {
     try {
-        const demo = await UsersService.create(req.body);
+        const user = await UsersService.create(req.body);
 
         return res.status(201).json({
-            data: demo,
+            data: user,
         });
     } catch (error) {
         return res.status(500).json({
@@ -31,10 +45,10 @@ async function create(req, res) {
 }
 async function update(req, res) {
     try {
-        const demo = await UsersService.create(req.body);
+        const user = await UsersService.update(req.params, req.body);
 
         return res.status(201).json({
-            data: demo,
+            data: user,
         });
     } catch (error) {
         return res.status(500).json({
@@ -45,10 +59,10 @@ async function update(req, res) {
 }
 async function deleteUser(req, res) {
     try {
-        const demo = await UsersService.create(req.body);
+        const count = await UsersService.deleteUser(req.params);
 
         return res.status(201).json({
-            data: demo,
+            data: count,
         });
     } catch (error) {
         return res.status(500).json({
@@ -59,6 +73,7 @@ async function deleteUser(req, res) {
 }
 
 module.exports = {
+    findAll,
     findOne,
     create,
     update,
