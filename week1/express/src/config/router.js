@@ -18,11 +18,10 @@ module.exports = {
             }
             if (!res.status()) {
                 console.log(res);
-                return next(ApiError.BadRequest('Помилка', res))
+                return nexat(ApiError.BadRequest('Помилка', res))
             }
             res.status(404).send(http.STATUS_CODES[404]);
         });
-
         app.use(router);
     },
 };
