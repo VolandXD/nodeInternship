@@ -5,9 +5,9 @@ const router = Router();
 
 router.post('/', UsersComponent.create);
 
-router.get('/list', UsersComponent.findAll);
+router.get('/', UsersComponent.findAll);
 
-router.get('/', UsersComponent.findOne);
+router.get('/:id', UsersComponent.findOne);
 
 router.put('/:id', UsersComponent.update);
 

@@ -16,7 +16,7 @@ async function findAll(req, res) {
 }
 async function findOne(req, res) {
     try {
-        const user = await UsersService.findOne(req.query);
+        const user = await UsersService.findOne(req.params);
 
         return res.status(200).json({
             data: user,

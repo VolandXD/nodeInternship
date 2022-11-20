@@ -1,5 +1,5 @@
 const UserModel = require('../../models/user-model')
-const UserDto = require('../../dtos/user-dto')
+const UserDto = require('./dtos/user-dto')
 
 async function findAll() {
     return UserModel.find();
