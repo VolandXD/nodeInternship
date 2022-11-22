@@ -26,5 +26,21 @@ const schema = Joi.object({
 }).with('firstName', 'lastName');
  /*   .xor('password', 'access_token')
     .with('password', 'repeat_password');*/
+const schemaSignIn = Joi.object({
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
 
-module.exports = schema;
+});
+const schemaAccessLogin = Joi.object({
+     token: [
+         Joi.string(),
+         Joi.number()
+     ],
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+}).with('email', 'token');
+module.exports = {
+    schema,
+    schemaSignIn,
+    schemaAccessLogin
+};
