@@ -1,38 +1,37 @@
-const validSchema = require('../../models/validations')
+const validSchema = require('./schemas/validations');
 const ApiError = require('../../exeptions/api-error');
-class ValidationController {
-    async validationFields(req, res, next) {
-        try {
-            const value = await validSchema.schema.validate(req);
-            if (value.error) {
-                return next(ApiError.BadRequest('Помилка валідації', value.error))
-            }
-            next();
-        } catch (e) {
-            next(e)
-        }
+
+function validationFields(req, res, next) {
+    const value = validSchema.schema.validate(req);
+
+    if (value.error) {
+        return next(ApiError.BadRequest('Validation Errors', value.error));
     }
-    async validationSignIn(req, res, next) {
-        try {
-            const value = await validSchema.schemaSignIn.validate(req);
-            if (value.error) {
-                return next(ApiError.BadRequest('Помилка валідації', value.error))
-            }
-            next();
-        } catch (e) {
-            next(e)
-        }
-    }
-    async validationAccessLogin(req, res, next) {
-        try {
-            const value = await validSchema.schemaAccessLogin.validate(req);
-            if (value.error) {
-                return next(ApiError.BadRequest('Помилка валідації', value.error))
-            }
-            next();
-        } catch (e) {
-            next(e)
-        }
-    }
+
+    return next();
 }
-module.exports = new ValidationController();
+
+function validationSignIn(req, res, next) {
+    const value = validSchema.schemaSignIn.validate(req);
+
+    if (value.error) {
+        return next(ApiError.BadRequest('Validation Errors', value.error));
+    }
+
+    return next();
+}
+
+function validationAccessLogin(req, res, next) {
+    const value = validSchema.schemaAccessLogin.validate(req);
+
+    if (value.error) {
+        return next(ApiError.BadRequest('Validation Errors', value.error));
+    }
+
+    return next();
+}
+module.exports = {
+    validationFields,
+    validationSignIn,
+    validationAccessLogin,
+};

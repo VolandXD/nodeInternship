@@ -4,16 +4,16 @@ const UsersValidation = require('./validate');
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
-    await UsersValidation.validationFields(req.body, res, next)
+router.post('/', (req, res, next) => {
+    UsersValidation.validationFields(req.body, res, next);
 }, UsersComponent.create);
 
-router.post('/sign-in',async (req, res, next) => {
-    await UsersValidation.validationSignIn(req.body, res, next)
+router.post('/sign-in', (req, res, next) => {
+    UsersValidation.validationSignIn(req.body, res, next);
 }, UsersComponent.signIn);
 
-router.get('/account',async (req, res, next) => {
-    await UsersValidation.validationAccessLogin(req.body, res, next)
+router.get('/account', (req, res, next) => {
+    UsersValidation.validationAccessLogin(req.body, res, next);
 }, UsersComponent.accessLogin);
 
 router.get('/', UsersComponent.findAll);

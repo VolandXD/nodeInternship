@@ -73,9 +73,11 @@ async function deleteUser(req, res) {
 }
 async function signIn(req, res) {
     try {
-        const user = await UsersService.findOne(req.body.email)
+        const user = await UsersService.findOne(req.body.email);
 
         const tokens = await UsersService.generateTokens({ email: user.email });
+
+        // eslint-disable-next-line no-underscore-dangle
         await UsersService.saveToken(user._id, tokens.refreshToken);
 
         return res.status(201).json({
@@ -90,13 +92,11 @@ async function signIn(req, res) {
             details: null,
         });
     }
-
 }
 async function accessLogin(req, res) {
     try {
-        const token =
-            req.body.token || req.query.token || req.headers["x-access-token"];
-        const userWithAccess = await UsersService.accessLogin(req.body.email, token)
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const userWithAccess = await UsersService.accessLogin(req.body.email, token);
 
         return res.status(201).json({
             data: userWithAccess,
@@ -107,7 +107,6 @@ async function accessLogin(req, res) {
             details: null,
         });
     }
-
 }
 module.exports = {
     findAll,
@@ -116,5 +115,5 @@ module.exports = {
     update,
     deleteUser,
     signIn,
-    accessLogin
+    accessLogin,
 };
