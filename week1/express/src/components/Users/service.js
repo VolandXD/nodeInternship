@@ -59,9 +59,17 @@ async function create({
     return user;
 }
 async function update({ id }, newData) {
-    return UserModel.findOneAndUpdate({ _id: id }, newData, {
-        new: true,
-    });
+    const hashPassword = await bcrypt.hash(newData.password, 3);
+    const tokens = await generateTokens({ password: hashPassword });
+    const user = await UserModel.findOneAndUpdate({ _id: id },
+        { ...newData, password: hashPassword }, {
+            new: true,
+        });
+
+    // eslint-disable-next-line no-underscore-dangle
+    await saveToken(user._id, tokens.refreshToken);
+
+    return user;
 }
 async function deleteUser({ id }) {
     const user = await UserModel.deleteOne({ _id: id });

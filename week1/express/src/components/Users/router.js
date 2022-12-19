@@ -20,7 +20,9 @@ router.get('/', UsersComponent.findAll);
 
 router.get('/:id', UsersComponent.findOne);
 
-router.put('/:id', UsersComponent.update);
+router.put('/:id', (req, res, next) => {
+    UsersValidation.validationFields(req.body, res, next);
+}, UsersComponent.update);
 
 router.delete('/:id', UsersComponent.deleteUser);
 
