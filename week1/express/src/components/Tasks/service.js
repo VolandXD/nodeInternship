@@ -1,13 +1,12 @@
-const UserModel = require('./models/user-model');
-// const UserDto = require('./dtos/user-dto')
+const TasksModel = require('./model');
 const TokenService = require('../Token/service');
 const ApiError = require('../../exeptions/api-error');
 
 async function findAll() {
-    return UserModel.find();
+    return TasksModel.find();
 }
 async function findOne(params) {
-    const user = await UserModel.findOne(params.id ? { _id: params.id } : { email: params });
+    const user = await TasksModel.findOne(params.id ? { _id: params.id } : { email: params });
 
     if (!user) {
         throw ApiError.BadRequest('User not found');
@@ -16,7 +15,7 @@ async function findOne(params) {
     return user;
 }
 async function create(data) {
-    const user = await UserModel.create(data);
+    const user = await TasksModel.create(data);
     // eslint-disable-next-line no-underscore-dangle
     const tokens = await TokenService.generateTokens(user);
 
@@ -26,7 +25,7 @@ async function create(data) {
     return user;
 }
 async function update({ id }, newData) {
-    const user = await UserModel.findOneAndUpdate({ _id: id },
+    const user = await TasksModel.findOneAndUpdate({ _id: id },
         newData, {
             new: true,
         });
@@ -39,7 +38,7 @@ async function update({ id }, newData) {
     return user;
 }
 async function deleteUser({ id }) {
-    const user = await UserModel.deleteOne({ _id: id });
+    const user = await TasksModel.deleteOne({ _id: id });
 
     return user.deletedCount;
 }
