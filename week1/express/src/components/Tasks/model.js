@@ -6,6 +6,7 @@ const TasksSchema = new Schema({
     description: { type: String, required: false },
     estimateTime: { type: Number, required: true },
     createBy: { type: String, required: false },
+    status: { type: String, required: false },
 });
 
 module.exports = model('Tasks', TasksSchema);

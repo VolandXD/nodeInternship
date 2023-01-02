@@ -20,7 +20,8 @@ const taskSchema = Joi.object({
 
 const updateEstimateSchema = Joi.object({
     estimateTime: Joi.number().integer().positive().required(),
-})
+});
+
 module.exports = {
     taskSchema,
     updateEstimateSchema,
