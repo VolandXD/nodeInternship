@@ -1,15 +1,15 @@
 const { Router } = require('express');
-const UsersComponent = require('./index');
-const UsersValidation = require('./validate');
+const AuthComponent = require('./index');
+const AuthValidation = require('./validate');
 
 const router = Router();
 
 router.post('/sign-in', (req, res, next) => {
-    UsersValidation.validationSignIn(req.body, res, next);
-}, UsersComponent.signIn);
+    AuthValidation.validationSignIn(req.body, res, next);
+}, AuthComponent.signIn);
 
 router.get('/account', (req, res, next) => {
-    UsersValidation.validationAccessLogin(req.body, res, next);
-}, UsersComponent.accessLogin);
+    AuthValidation.validationAccessLogin(req.body, res, next);
+}, AuthComponent.accessLogin);
 
 module.exports = router;

@@ -8,14 +8,12 @@ router.post('/', (req, res, next) => {
     taskSchema.validationFields(req.body, res, next);
 }, TasksComponent.create);
 
-router.get('/', TasksComponent.findAll);
+router.get('/tasks/all', TasksComponent.findAll);
 
-router.get('/:id', TasksComponent.findOne);
+router.get('/', TasksComponent.taskPagination);
 
-router.put('/:id', (req, res, next) => {
-    taskSchema.validationFields(req.body, res, next);
+router.patch('/:id', (req, res, next) => {
+    taskSchema.validationUpdateFields(req.body, res, next);
 }, TasksComponent.update);
-
-router.delete('/:id', TasksComponent.deleteUser);
 
 module.exports = router;

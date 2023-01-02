@@ -5,7 +5,6 @@ const TokenService = require('../Token/service');
 async function signIn(req, res) {
     try {
         const user = await UsersService.findOne(req.body.email);
-
         // eslint-disable-next-line no-underscore-dangle
         const tokens = await TokenService.generateTokens({ _id: user._id });
 
@@ -27,7 +26,7 @@ async function signIn(req, res) {
 }
 async function accessLogin(req, res) {
     try {
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['authorization'].split(' ')[1];
         const userWithAccess = await AuthService.accessLogin(req.body.email, token);
 
         return res.status(201).json({
